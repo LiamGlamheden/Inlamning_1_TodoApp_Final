@@ -9,7 +9,12 @@ type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 type SimpleTodo = {
   id: string;
   title: string;
+  description?: string;
+  createDate?: Date;
+  deadLine?: Date;
+  done?: boolean;
 };
+
 
 
 export default function HomeScreen({ navigation }: Props) {
@@ -21,7 +26,7 @@ export default function HomeScreen({ navigation }: Props) {
       <Text>{item.title}</Text>
         <Button
             title="Go to Details"
-            onPress={() => navigation.navigate("DetailsTodo", { id: item.id, title: item.title })}
+            onPress={() => navigation.navigate("DetailsTodo", { id: item.id, title: item.title, description: item.description, createDate: item.createDate, deadLine: item.deadLine, done: item.done })}
         />
     </View>
     

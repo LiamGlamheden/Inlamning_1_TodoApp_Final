@@ -9,8 +9,14 @@ import HomeScreen from "./Screens/HomeScreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  DetailsTodo: { id: string, title: string };
-  CreateTodo: undefined;
+  DetailsTodo: { 
+    id: string; 
+    title: string; 
+    description?: string; 
+    createDate?: Date; 
+    deadLine?: Date; 
+    done?: boolean; 
+  };  CreateTodo: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();

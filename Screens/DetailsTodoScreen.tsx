@@ -6,17 +6,18 @@ type Props = NativeStackScreenProps<RootStackParamList, "DetailsTodo">;
 
 
 export default function DetailsTodoScreen({ route }: Props) {
-      const { id, title } = route.params
+    const { id, title, description, createDate, deadLine, done } = route.params;
 
     return(
-        <View>
+      <View>
+        <Text>DetailsTodoScreen</Text>
+        <Text>Task ID: {route.params.id}</Text>
+        <Text>Task Title: {route.params.title}</Text>
+        <Text>Task Description: {route.params.description}</Text>
+        <Text>Created At: {route.params.createDate?.toString()}</Text>
+        <Text>Deadline: {route.params.deadLine?.toString()}</Text>
+        <Text>Done: {route.params.done ? 'Yes' : 'No'}</Text>
+    </View>
 
-            <Text>
-                DetailsTodoScreen
-            </Text>
-            <Text> Task: {route.params.title}</Text>
-            
-        </View>
-        
     )
 }
