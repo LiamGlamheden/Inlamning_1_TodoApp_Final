@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../App';
 import { todos } from '../data';
 
@@ -12,15 +12,21 @@ type SimpleTodo = {
 };
 
 
-export default function HomeScreen(){
+export default function HomeScreen({ navigation }: Props) {
   const [selectedId, setSelectedId] = useState<string>();
 
  const renderItem = ({ item }: { item: SimpleTodo }) => {
   return (
     <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ccc' }}>
       <Text>{item.title}</Text>
+        <Button
+            title="Go to Details"
+            onPress={() => navigation.navigate("DetailsTodo", { id: item.id })}
+        />
     </View>
+    
   );
+  
 };
 
   
