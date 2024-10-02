@@ -9,7 +9,7 @@ import HomeScreen from "./Screens/HomeScreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  DetailsTodo: { id: string };
+  DetailsTodo: { id: string, title: string };
   CreateTodo: undefined;
 };
 

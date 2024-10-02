@@ -5,15 +5,16 @@ import { RootStackParamList } from '../App';
 type Props = NativeStackScreenProps<RootStackParamList, "DetailsTodo">;
 
 
-export default function DetailsTodoScreen(){
-    
+export default function DetailsTodoScreen({ route }: Props) {
+      const { id, title } = route.params
+
     return(
         <View>
 
             <Text>
                 DetailsTodoScreen
             </Text>
-
+            <Text> Task: {route.params.title}</Text>
             
         </View>
         

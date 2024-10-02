@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation }: Props) {
       <Text>{item.title}</Text>
         <Button
             title="Go to Details"
-            onPress={() => navigation.navigate("DetailsTodo", { id: item.id })}
+            onPress={() => navigation.navigate("DetailsTodo", { id: item.id, title: item.title })}
         />
     </View>
     
