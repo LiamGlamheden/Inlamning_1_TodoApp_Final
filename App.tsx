@@ -7,6 +7,7 @@ import CreateTodoScreen from "./Screens/CreateTodoScreen";
 import DetailsTodoScreen from "./Screens/DetailsTodoScreen";
 import HomeScreen from "./Screens/HomeScreen";
 
+
 export type RootStackParamList = {
   Home: undefined;
   DetailsTodo: { 
@@ -16,7 +17,8 @@ export type RootStackParamList = {
     createDate?: Date; 
     deadLine?: Date; 
     done?: boolean; 
-  };  CreateTodo: undefined;
+  };  
+  CreateTodo: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -32,7 +34,10 @@ export default function App() {
         <RootStack.Screen name="CreateTodo" component={CreateTodoScreen} />
 
       </RootStack.Navigator>
+      
     </NavigationContainer>
+    
+    
   );
 }
 
