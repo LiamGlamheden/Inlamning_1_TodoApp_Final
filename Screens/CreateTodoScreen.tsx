@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { RootStackParamList } from '../App';
 import React from 'react';
+import { StyleSheet, Text, TextComponent, TextInput, View } from 'react-native';
+import { RootStackParamList } from '../App';
 
 type Props = NativeStackScreenProps<RootStackParamList, "CreateTodo">;
 
@@ -22,7 +22,23 @@ export default function CreateTodoScreen(){
             value={text}
             />
 
-         
+            <TextInput
+             style={styles.input}
+            placeholder="Task description"
+            onChangeText={onChangeText}
+            value={text}
+            />
+
+            <TextInput
+             style={styles.input}
+            placeholder="DeadLine?"
+            onChangeText={onChangeText}
+            value={text}
+            />
+
+          
+
+
         </View>
     )
 }
