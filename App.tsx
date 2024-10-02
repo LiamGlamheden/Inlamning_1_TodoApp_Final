@@ -1,12 +1,32 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import CreateTodoScreen from "./Screens/CreateTodoScreen";
+import DetailsTodoScreen from "./Screens/DetailsTodoScreen";
+import HomeScreen from "./Screens/HomeScreen";
+
+export type RootStackParamList = {
+  Home: undefined;
+  DetailsTodo: { id: string };
+  CreateTodo: undefined;
+};
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+      <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen name="DetailsTodo" component={DetailsTodoScreen} />
+        <RootStack.Screen name="CreateTodo" component={CreateTodoScreen} />
+
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
 
