@@ -1,44 +1,55 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-import { StyleSheet, Text, TextComponent, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { RootStackParamList } from '../App';
 
 type Props = NativeStackScreenProps<RootStackParamList, "CreateTodo">;
 
 
 export default function CreateTodoScreen(){
-     const [text, onChangeText] = React.useState('');
-     const [number, onChangeNumber] = React.useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [deadLine, setDeadLine] = useState('');
+
+    const handleSubmit = () => {
+        const newTodo = {
+            id: Date.now().toString(), // Exempel på ID
+            createDate: new Date(),
+            title,
+            description,
+            deadLine: new Date(deadLine),
+            done: false,
+        };
+        console.log('New Todo:', newTodo);
+    };
     return(
         <View>
             <Text>
                 CreateTodoScreen
             </Text>
 
-            <TextInput
-             style={styles.input}
-            placeholder="Task name"
-            onChangeText={onChangeText}
-            value={text}
+          <TextInput
+                style={styles.input}
+                placeholder="Task name"
+                onChangeText={setTitle}
+                value={title}
             />
 
             <TextInput
-             style={styles.input}
-            placeholder="Task description"
-            onChangeText={onChangeText}
-            value={text}
+                style={styles.input}
+                placeholder="Task description"
+                onChangeText={setDescription}
+                value={description}
             />
 
             <TextInput
-             style={styles.input}
-            placeholder="DeadLine?"
-            onChangeText={onChangeText}
-            value={text}
+                style={styles.input}
+                placeholder="Deadline (YYYY-MM-DD)"
+                onChangeText={setDeadLine}
+                value={deadLine}
             />
 
-          
-
-
+            <Button title="Submit" onPress={handleSubmit} />
         </View>
     )
 }
