@@ -16,6 +16,7 @@ Notifications.setNotificationHandler({
 type Props = NativeStackScreenProps<RootStackParamList, "CreateTodo">;
 
 export default function CreateTodoScreen({ route, navigation }: Props) {
+
   const { onCreate } = route.params; 
   const [title, setTitle] = useState<string>(''); 
   const [description, setDescription] = useState<string>(''); 
@@ -30,6 +31,7 @@ export default function CreateTodoScreen({ route, navigation }: Props) {
       deadLine: new Date(deadLine), 
       done: false,
     };
+    Notifications.getPermissionsAsync();
 
     Notifications.scheduleNotificationAsync({
       content: {
@@ -38,7 +40,7 @@ export default function CreateTodoScreen({ route, navigation }: Props) {
       },
       trigger: null, 
     });
-
+    
     onCreate(newTodo); 
     setTitle('');
     setDescription('');
