@@ -1,40 +1,19 @@
-import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useState } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
-import { SceneMap, TabView } from 'react-native-tab-view';
 import { RootStackParamList } from '../App';
-import { todos } from '../data';
+import { SimpleTodo } from '../data';
 import CreateTodoScreen from './CreateTodoScreen';
 
-type TodoListProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, "Home">;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-type SimpleTodo = {
-  id: string;
-  title: string;
-  description?: string;
-  createDate?: Date;
-  deadLine?: Date;
-  done?: boolean;
-};
-
-const TodoList = ({ navigation }: TodoListProps) => {
+const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todos: SimpleTodo[] }) => {
   const renderItem = ({ item }: { item: SimpleTodo }) => (
-    <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#ccc' }}>
+    <View style={styles.item}>
       <Text>{item.title}</Text>
       <Button
-        title="Go to Details"
-        onPress={() =>
-          navigation.navigate("DetailsTodo", {
-            id: item.id,
-            title: item.title,
-            description: item.description,
-            createDate: item.createDate,
-            deadLine: item.deadLine,
-            done: item.done,
-          })
-        }
+        title="View Details"
+        onPress={() => navigation.navigate('DetailsTodo', { ...item })}
       />
     </View>
   );
@@ -48,40 +27,28 @@ const TodoList = ({ navigation }: TodoListProps) => {
   );
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
-
 export default function HomeScreen({ navigation }: Props) {
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'first', title: 'Todos' },
-    { key: 'second', title: 'Create Todo' },
-  ]);
+  const [todos, setTodos] = useState<SimpleTodo[]>([]);
 
-  const renderScene = SceneMap({
-    first: () => <TodoList navigation={navigation} />, 
-    second: CreateTodoScreen,
-  });
+  const handleCreateTodo = (newTodo: SimpleTodo) => {
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: 300 }}
+      <TodoList navigation={navigation} todos={todos} />
+      <Button
+        title="Create Todo"
+        onPress={() => navigation.navigate('CreateTodo', { onCreate: handleCreateTodo })}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    color: 'black',
+  item: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
   },
 });

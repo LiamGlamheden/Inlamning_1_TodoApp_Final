@@ -1,3 +1,6 @@
+// data.ts
+
+// Definiera SimpleTodo-interfacet
 export interface SimpleTodo {
   id: string;
   createDate: Date;
@@ -7,6 +10,7 @@ export interface SimpleTodo {
   done: boolean;
 }
 
+// Initiala todos-array
 export const todos: SimpleTodo[] = [
   {
     id: "1",

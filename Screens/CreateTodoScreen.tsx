@@ -2,56 +2,57 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { RootStackParamList } from '../App';
+import { SimpleTodo } from '../data';
 
 type Props = NativeStackScreenProps<RootStackParamList, "CreateTodo">;
 
+export default function CreateTodoScreen({ route, navigation }: Props) {
+  const { onCreate } = route.params; 
+  const [title, setTitle] = useState<string>(''); 
+  const [description, setDescription] = useState<string>(''); 
+  const [deadLine, setDeadLine] = useState<string>(''); 
 
-export default function CreateTodoScreen(){
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [deadLine, setDeadLine] = useState('');
-
-    const handleSubmit = () => {
-        const newTodo = {
-            id: Date.now().toString(), // Exempel på ID
-            createDate: new Date(),
-            title,
-            description,
-            deadLine: new Date(deadLine),
-            done: false,
-        };
-        console.log('New Todo:', newTodo);
+  const handleSubmit = () => {
+    const newTodo: SimpleTodo = {
+      id: Date.now().toString(),
+      createDate: new Date(),
+      title,
+      description,
+      deadLine: new Date(deadLine), 
+      done: false,
     };
-    return(
-        <View>
-            <Text>
-                CreateTodoScreen
-            </Text>
 
-          <TextInput
-                style={styles.input}
-                placeholder="Task name"
-                onChangeText={setTitle}
-                value={title}
-            />
+    onCreate(newTodo); 
+    navigation.navigate("Home"); 
+    setTitle('');
+    setDescription('');
+    setDeadLine('');
+  };
 
-            <TextInput
-                style={styles.input}
-                placeholder="Task description"
-                onChangeText={setDescription}
-                value={description}
-            />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Deadline (YYYY-MM-DD)"
-                onChangeText={setDeadLine}
-                value={deadLine}
-            />
-
-            <Button title="Submit" onPress={handleSubmit} />
-        </View>
-    )
+  return (
+    <View style={styles.container}>
+      <Text>Create Todo</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Task name"
+        onChangeText={setTitle}
+        value={title}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Task description"
+        onChangeText={setDescription}
+        value={description}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Deadline (YYYY-MM-DD)"
+        onChangeText={setDeadLine}
+        value={deadLine}
+      />
+      <Button title="Submit" onPress={handleSubmit} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -66,8 +67,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  },
-  title: {
-    color: 'black',
+    width: '80%', 
   },
 });
