@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../App';
 import { SimpleTodo, todos as initialTodos } from '../data';
-import * as ImagePicker from 'expo-image-picker';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -11,11 +11,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todos: SimpleTodo[] }) => {
   const renderItem = ({ item }: { item: SimpleTodo }) => (
     <View style={styles.item}>
+
       <Text>{item.title}</Text>
       <Button
         title="View Details"
         onPress={() => navigation.navigate('DetailsTodo', { ...item })}
       />
+
     </View>
   );
 
@@ -54,16 +56,28 @@ export default function HomeScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <TodoList navigation={navigation} todos={todos} />
+   <View style={{ flex: 1 }}>
+      {image ? (
+        <ImageBackground
+          source={{ uri: image }} 
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <TodoList navigation={navigation} todos={todos} />
+        </ImageBackground>
+      ) : (
+        <View style={styles.noImageContainer}>
+          <TodoList navigation={navigation} todos={todos} />
+        </View>
+      )}
+      
       <Button
         title="Create Todo"
         onPress={() => navigation.navigate('CreateTodo', { onCreate: handleCreateTodo })}
       />
       <Button
-       title='Set background'
-       onPress={pickImage}
-
+        title='Set background'
+        onPress={pickImage}
       />
     </View>
   );
@@ -74,5 +88,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#ccc',
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  noImageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
