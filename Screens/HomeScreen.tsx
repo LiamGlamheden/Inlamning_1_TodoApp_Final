@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../App';
 import { SimpleTodo, todos as initialTodos } from '../data';
+import * as ImagePicker from 'expo-image-picker';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -31,8 +32,23 @@ export default function HomeScreen({ navigation }: Props) {
 
     const [expoPushToken, setExpoPushToken] = useState('');
 
-  const [todos, setTodos] = useState<SimpleTodo[]>(initialTodos); 
+    const [todos, setTodos] = useState<SimpleTodo[]>(initialTodos); 
+    const [image, setImage] = useState<string | null>(null);
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
   const handleCreateTodo = (newTodo: SimpleTodo) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
@@ -43,6 +59,11 @@ export default function HomeScreen({ navigation }: Props) {
       <Button
         title="Create Todo"
         onPress={() => navigation.navigate('CreateTodo', { onCreate: handleCreateTodo })}
+      />
+      <Button
+       title='Set background'
+       onPress={pickImage}
+
       />
     </View>
   );
