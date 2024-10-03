@@ -3,6 +3,15 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { RootStackParamList } from '../App';
 import { SimpleTodo } from '../data';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 type Props = NativeStackScreenProps<RootStackParamList, "CreateTodo">;
 
@@ -22,8 +31,15 @@ export default function CreateTodoScreen({ route, navigation }: Props) {
       done: false,
     };
 
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Todo added", 
+        body: 'En till Todo har skapats', 
+      },
+      trigger: null, 
+    });
+
     onCreate(newTodo); 
-    navigation.navigate("Home"); 
     setTitle('');
     setDescription('');
     setDeadLine('');

@@ -2,10 +2,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../App';
-import { SimpleTodo, todos as initialTodos } from '../data'; // Import initial todos
-import CreateTodoScreen from './CreateTodoScreen';
+import { SimpleTodo, todos as initialTodos } from '../data';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
 
 const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todos: SimpleTodo[] }) => {
   const renderItem = ({ item }: { item: SimpleTodo }) => (
@@ -28,7 +28,10 @@ const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todo
 };
 
 export default function HomeScreen({ navigation }: Props) {
-  const [todos, setTodos] = useState<SimpleTodo[]>(initialTodos); // Initialize with imported todos
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+
+  const [todos, setTodos] = useState<SimpleTodo[]>(initialTodos); 
 
   const handleCreateTodo = (newTodo: SimpleTodo) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
