@@ -120,9 +120,11 @@ export default function HomeScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 10,
+    width: '100%',
+    padding: 15,
     borderBottomWidth: 1,
     borderColor: '#ccc',
+    backgroundColor: '#f9f9f9', 
   },
   image: {
     flex: 1,
@@ -131,6 +133,6 @@ const styles = StyleSheet.create({
   noImageContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    
   },
 });
