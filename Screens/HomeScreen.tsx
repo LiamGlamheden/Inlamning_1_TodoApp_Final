@@ -12,7 +12,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todos: SimpleTodo[] }) => {
   const renderItem = ({ item }: { item: SimpleTodo }) => (
     <View style={styles.item}>
-      <Text>{item.title}</Text>
+      <Text style={styles.itemText}>{item.title}</Text>
       <Button
         title="View Details"
         onPress={() => navigation.navigate('DetailsTodo', { ...item })}
@@ -134,5 +134,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     
+  },
+  itemText: {
+    fontSize: 18, 
+    fontWeight: 'bold', 
   },
 });
