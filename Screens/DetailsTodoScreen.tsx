@@ -23,11 +23,6 @@ export default function DetailsTodoScreen({ route }: Props) {
             <Text style={styles.label}>Done:</Text>
             <Text style={styles.value}>{done ? 'Yes' : 'No'}</Text>
 
-            {/* Uncomment the button below to use it */}
-            {/* <Button
-                title="Remove todo"
-                onPress={}
-            /> */}
         </View>
     );
 }
