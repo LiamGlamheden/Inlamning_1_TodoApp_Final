@@ -9,12 +9,12 @@ export default function DetailsTodoScreen({ route }: Props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Task Details</Text>
-            <Text style={styles.label}>Task ID:</Text>
+            <Text style={styles.title}>Todo Details</Text>
+            <Text style={styles.label}>Todo ID:</Text>
             <Text style={styles.value}>{id}</Text>
-            <Text style={styles.label}>Task Title:</Text>
+            <Text style={styles.label}>Todo Title:</Text>
             <Text style={styles.value}>{title}</Text>
-            <Text style={styles.label}>Task Description:</Text>
+            <Text style={styles.label}>Todo Description:</Text>
             <Text style={styles.value}>{description}</Text>
             <Text style={styles.label}>Created At:</Text>
             <Text style={styles.value}>{createDate?.toString()}</Text>

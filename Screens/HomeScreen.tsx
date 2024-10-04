@@ -9,13 +9,18 @@ import { SimpleTodo, todos as initialTodos } from '../data';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const TodoList = ({ navigation, todos }: { navigation: Props['navigation'], todos: SimpleTodo[] }) => {
+const TodoList = ({ navigation, todos, onDelete }: { navigation: Props['navigation'], todos: SimpleTodo[], onDelete: (id: string) => void }) => {
   const renderItem = ({ item }: { item: SimpleTodo }) => (
     <View style={styles.item}>
       <Text style={styles.itemText}>{item.title}</Text>
       <Button
         title="View Details"
         onPress={() => navigation.navigate('DetailsTodo', { ...item })}
+      />
+      <Button
+        title="Delete"
+        onPress={() => onDelete(item.id)}
+        color="red"
       />
     </View>
   );
@@ -80,6 +85,10 @@ export default function HomeScreen({ navigation }: Props) {
     }
   };
 
+  const handleDeleteTodo = (id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
+
   const handleCreateTodo = (newTodo: SimpleTodo) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
@@ -93,11 +102,11 @@ export default function HomeScreen({ navigation }: Props) {
             resizeMode="cover"
             style={styles.image}
           >
-            <TodoList navigation={navigation} todos={todos} />
+            <TodoList navigation={navigation} todos={todos} onDelete={handleDeleteTodo} />
           </ImageBackground>
         ) : (
           <View style={styles.noImageContainer}>
-            <TodoList navigation={navigation} todos={todos} />
+            <TodoList navigation={navigation} todos={todos} onDelete={handleDeleteTodo} />
           </View>
         )}
       </View>
@@ -125,6 +134,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#f9f9f9', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   image: {
     flex: 1,
@@ -133,7 +145,6 @@ const styles = StyleSheet.create({
   noImageContainer: {
     flex: 1,
     justifyContent: 'center',
-    
   },
   itemText: {
     fontSize: 18, 
