@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { RootStackParamList } from '../App';
 
 type Props = NativeStackScreenProps<RootStackParamList, "DetailsTodo">;
@@ -16,8 +16,15 @@ export default function DetailsTodoScreen({ route }: Props) {
         <Text>Task Description: {route.params.description}</Text>
         <Text>Created At: {route.params.createDate?.toString()}</Text>
         <Text>Deadline: {route.params.deadLine?.toString()}</Text>
-        <Text>Done: {route.params.done ? 'Yes' : 'No'}</Text>
+        {/* <Text>Done: {route.params.done ? 'Yes' : 'No'}</Text> */}
+
+        {/* <Button
+        title= "Remove todo"
+        onPress={}
+        /> */}
+
     </View>
+
 
     )
 }
